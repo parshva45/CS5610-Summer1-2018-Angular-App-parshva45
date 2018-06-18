@@ -1,29 +1,44 @@
-<div *ngFor="let widget of widgets">
-  <div [ngSwitch]="widget.widgetType">
-    <div *ngSwitchCase="'HeadingWidget'">
-      <div [ngSwitch]="widget.size">
-        <h1 *ngSwitchCase="'1'">{{widget.text}}</h1>
-        <h2 *ngSwitchCase="'2'">{{widget.text}}</h2>
-        <h3 *ngSwitchCase="'3'">{{widget.text}}</h3>
-        <h4 *ngSwitchCase="'4'">{{widget.text}}</h4>
-        <h5 *ngSwitchCase="'5'">{{widget.text}}</h5>
-        <h6 *ngSwitchCase="'6'">{{widget.text}}</h6>
+<div class="container-fluid">
+  <div *ngFor="let widget of widgets">
+    <div [ngSwitch]="widget.widgetType">
+      <div *ngSwitchCase="'Paragraph'">
+        <div class="linebreaks">{{widget.text}}</div>
+      </div>
+      <div *ngSwitchCase="'Heading'">
+        <div [ngSwitch]="widget.size">
+          <h1 *ngSwitchCase="1">{{widget.text}}</h1>
+          <h2 *ngSwitchCase="2">{{widget.text}}</h2>
+          <h3 *ngSwitchCase="3">{{widget.text}}</h3>
+          <h4 *ngSwitchCase="4">{{widget.text}}</h4>
+          <h5 *ngSwitchCase="5">{{widget.text}}</h5>
+          <h6 *ngSwitchCase="6">{{widget.text}}</h6>
+        </div>
+      </div>
+      <div *ngSwitchCase="'Link'">
+        <a href="{{widget.href}}">{{widget.text}}</a>
+      </div>
+      <div *ngSwitchCase="'List'">
+        <div [ngSwitch]="widget.listType">
+          <ul *ngSwitchCase="'Unordered list'">
+            <li
+              *ngFor="let listItem of widget.listItems.split('\n')">
+              {{listItem}}
+            </li>
+          </ul>
+          <ol *ngSwitchCase="'Ordered list'">
+            <li
+              *ngFor="let listItem of widget.listItems.split('\n')">
+              {{listItem}}
+            </li>
+          </ol>
+        </div>
+      </div>
+      <div *ngSwitchCase="'Image'">
+        <img src="{{widget.src}}"
+             width="{{widget.width}}"
+             height="{{widget.height}}"/>
       </div>
     </div>
-    <div *ngSwitchCase="'LinkWidget'">
-      <a href="{{widget.href}}">{{widget.text}}</a>
-    </div>
-    <div *ngSwitchCase="'ListWidget'">
-      <h1>ListWidget</h1>
-      <ul class="list-group">
-        <li class="list-group-item"
-            *ngFor="let item of widget.items.split('|')">
-          {{item}}
-        </li>
-      </ul>
-    </div>
-    <div *ngSwitchCase="'Exam'">
-      <h1>Exam Widget</h1>
-    </div>
+    <hr>
   </div>
 </div>
