@@ -40,7 +40,7 @@ export class UserServiceClient {
       username: username,
       password: password
     };
-    return fetch('http://localhost:4000/api/user', {
+    return fetch('http://localhost:4000/api/register', {
       body: JSON.stringify(user),
       credentials: 'include', // include, same-origin, *omit
       method: 'post',

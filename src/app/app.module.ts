@@ -23,6 +23,7 @@ import { ProfileComponent } from './profile/profile.component';
 import {UserServiceClient} from "./services/user.service.client";
 import { SectionListComponent } from './section-list/section-list.component';
 import {SectionServiceClient} from "./services/section.service.client";
+import {EnrollmentServiceClient} from "./services/enrollment.service.client";
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import {SectionServiceClient} from "./services/section.service.client";
     LessonServiceClient,
     WidgetServiceClient,
     UserServiceClient,
-    SectionServiceClient
+    SectionServiceClient,
+    EnrollmentServiceClient
   ],
   bootstrap: [AppComponent]
 })

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from "../models/user.model.client";
 import {UserServiceClient} from "../services/user.service.client";
 import {Router} from "@angular/router";
-import {SectionServiceClient} from "../services/section.service.client";
+import {EnrollmentServiceClient} from "../services/enrollment.service.client";
 
 @Component({
   selector: 'app-profile',
@@ -12,12 +11,11 @@ import {SectionServiceClient} from "../services/section.service.client";
 export class ProfileComponent implements OnInit {
 
   constructor(private service: UserServiceClient,
-              private sectionService: SectionServiceClient,
+              private enrollmentService: EnrollmentServiceClient,
               private router: Router) { }
 
   user = {};
   username;
-  password;
   sections = [];
 
   update(user) {
@@ -38,8 +36,8 @@ export class ProfileComponent implements OnInit {
       .then(user =>
         this.username = user.username);
 
-    this.sectionService
-      .findSectionsForStudent()
+    this.enrollmentService
+      .findEnrolledSectionsForStudent()
       .then(sections => this.sections = sections );
   }
 
