@@ -10,7 +10,7 @@ import {EnrollmentServiceClient} from "../services/enrollment.service.client";
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private service: UserServiceClient,
+  constructor(private userService: UserServiceClient,
               private enrollmentService: EnrollmentServiceClient,
               private router: Router) {
   }
@@ -21,25 +21,29 @@ export class ProfileComponent implements OnInit {
     lastName: '',
     phoneNumber: '',
     email: '',
-    address: ''
+    address: '',
+    userType: ''
   };
   sections = [];
 
   update(user) {
-    this.service
+    this.userService
       .updateProfile(user)
-      .then(() => this.user = user);
+      .then(() => {
+        this.user = user;
+        alert("Profile updated successfully");
+      });
   }
 
   logout() {
-    this.service
+    this.userService
       .logout()
       .then(() =>
         this.router.navigate(['login']));
   }
 
   ngOnInit() {
-    this.service
+    this.userService
       .getProfile()
       .then(user => this.user = user);
 

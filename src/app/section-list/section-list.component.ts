@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {SectionServiceClient} from "../services/section.service.client";
 import {EnrollmentServiceClient} from "../services/enrollment.service.client";
+import {CourseServiceClient} from "../services/course.service.client";
 
 @Component({
   selector: 'app-section-list',
@@ -12,6 +13,7 @@ export class SectionListComponent implements OnInit {
 
   constructor(private sectionService: SectionServiceClient,
               private enrollmentService: EnrollmentServiceClient,
+              private courseService: CourseServiceClient,
               private router: Router,
               private route: ActivatedRoute) {
     this.route.params.subscribe(params => this.loadSections(params['courseId']));
@@ -20,9 +22,14 @@ export class SectionListComponent implements OnInit {
   sectionName = '';
   seats = '';
   courseId = '';
+  courseName = '';
   sections = [];
+
   loadSections(courseId) {
     this.courseId = courseId;
+    this.courseService
+      .findCourseById(courseId)
+      .then(course => this.courseName = course.title);
     this
       .sectionService
       .findSectionsForCourse(courseId)
@@ -32,7 +39,9 @@ export class SectionListComponent implements OnInit {
   createSection(sectionName, seats) {
     this
       .sectionService
-      .createSection(this.courseId, sectionName, seats)
+      .createSection(this.courseId,
+        this.courseName + ' - ' + sectionName,
+        seats)
       .then(() => {
         this.loadSections(this.courseId);
       });
@@ -47,7 +56,6 @@ export class SectionListComponent implements OnInit {
       });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }

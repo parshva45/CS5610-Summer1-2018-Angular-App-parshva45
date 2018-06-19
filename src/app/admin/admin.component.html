@@ -1,0 +1,16 @@
+<div class="container">
+  <h3>Courses and Sections</h3>
+  <div *ngFor="let item of courses">
+    <div class="card">
+      <div class="card-header text-white bg-dark" (click)="toggleSelected(item.name)">
+        {{item.name}}
+        <fa name="plus" class="float-right" *ngIf="item.name !== selected"></fa>
+        <fa name="minus" class="float-right" *ngIf="item.name === selected"></fa>
+      </div>
+      <div class="card-body" *ngIf="item.name === selected">
+        {{item.text}}
+      </div>
+    </div>
+    <br>
+  </div>
+</div>

@@ -5,6 +5,7 @@
     <label>Username</label>
     <input [(ngModel)]="user.username"
            placeholder="username"
+           readonly
            class="form-control"/>
   </div>
 
@@ -26,6 +27,7 @@
     <label>Phone Number</label>
     <input [(ngModel)]="user.phoneNumber"
            placeholder="phone number"
+           maxlength="10"
            class="form-control"/>
   </div>
 
@@ -61,5 +63,10 @@
 
   <a (click)="logout()">Logout</a>
   <a routerLink="/home">Home</a>
+
+  <a *ngIf="user.userType === 'Admin'"
+     routerLink="/admin">
+    Admin Page
+  </a>
 
 </div>
