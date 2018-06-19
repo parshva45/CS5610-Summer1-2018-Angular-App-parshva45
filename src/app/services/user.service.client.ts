@@ -1,7 +1,7 @@
 export class UserServiceClient {
 
-  findUserById(userId) {
-    return fetch('http://localhost:4000/api/user/' + userId)
+  findUserByUsername(username) {
+    return fetch('http://localhost:4000/api/user/' + username)
       .then(response => response.json());
   }
 
