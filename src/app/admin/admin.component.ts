@@ -15,13 +15,9 @@ export class AdminComponent implements OnInit {
   }
 
   courses = [];
-
   selected = 0;
-
-  newSection = {
-    name: '',
-    seats: 0
-  };
+  sectionName = '';
+  sectionSeats = 0;
 
   toggleSelected(id) {
     if (this.selected === id) {
@@ -32,10 +28,21 @@ export class AdminComponent implements OnInit {
   }
 
   loadSections(courseId, index) {
+    this.sectionName = '';
+    this.sectionSeats = 0;
     this.sectionService
       .findSectionsForCourse(courseId)
       .then(sections => {
         this.courses[index].sections = sections;
+      });
+  }
+
+  createSection(courseId, sectionName, seats, index) {
+    this
+      .sectionService
+      .createSection(courseId, sectionName, seats)
+      .then(() => {
+        this.loadSections(courseId, index);
       });
   }
 

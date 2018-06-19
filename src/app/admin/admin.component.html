@@ -1,6 +1,6 @@
 <div class="container">
   <h3>Courses and Sections</h3>
-  <div *ngFor="let course of courses">
+  <div *ngFor="let course of courses; let i = index" [attr.data-index]="i">
     <div class="card">
       <div class="card-header text-white bg-dark" (click)="toggleSelected(course.id)">
         {{course.title}}
@@ -9,35 +9,50 @@
       </div>
       <div class="card-body" *ngIf="course.id === selected">
 
-          <div class="form-group">
-            <label>Section Name</label>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-      <span class="input-group-text"
-            id="basic-addon3">{{course.title}} - </span>
-              </div>
+        <table class="table table-striped">
+          <thead>
+
+          <tr>
+            <th>Section Name</th>
+            <th>Number of Seats</th>
+            <th>&nbsp;</th>
+          </tr>
+
+          <tr>
+            <th>
               <input class="form-control"
-                     [(ngModel)]="newSection.name"
-                     aria-describedby="basic-addon3"
-                     placeholder="Section Name">
-            </div>
-          </div>
+                     [(ngModel)]="sectionName"
+                     placeholder="Eg: {{course.title}} - Section 1">
+            </th>
+            <th>
+              <input [(ngModel)]="sectionSeats"
+                     placeholder="Eg: 80"
+                     type="number"
+                     min=0
+                     class="form-control">
+            </th>
+            <th>
+              <button class="btn btn-success fa fa-plus"
+                      (click)="createSection(course.id, sectionName, sectionSeats, i)">
+              </button>
+            </th>
+          </tr>
+          </thead>
 
-          <div class="form-group">
-            <label>Total Seats</label>
-            <input [(ngModel)]="newSection.seats"
-                   placeholder="Seats available"
-                   type="number"
-                   class="form-control">
-          </div>
+          <tbody>
 
-          <button class="btn btn-success btn-block">
-            Add Section
-          </button>
+          <tr *ngFor="let section of course.sections">
+            <td>{{section.name}}</td>
+            <td>{{section.seats}}</td>
+            <th>
+              <button class="btn btn-danger fa fa-trash"></button>
+              <button class="btn btn-primary fa fa-pencil"></button>
+            </th>
+          </tr>
 
-        <div *ngFor="let section of course.sections">
-          {{section.name}} ({{section.seats}})
-        </div>
+          </tbody>
+
+        </table>
       </div>
     </div>
     <br>
