@@ -6,7 +6,7 @@
         {{course.title}}
         <i class="fa fa-plus float-right" *ngIf="course.id !== selected"></i>
         <i class="fa fa-minus float-right" *ngIf="course.id === selected"></i>
-        
+
       </div>
       <div class="card-body" *ngIf="course.id === selected">
 
@@ -34,7 +34,16 @@
             </th>
             <th>
               <button class="btn btn-success fa fa-plus"
+                      *ngIf="!updateMode"
                       (click)="createSection(course.id, sectionName, sectionSeats, i)">
+              </button>
+              <button class="btn btn-success fa fa-check"
+                      *ngIf="updateMode"
+                      (click)="updateSection(i)">
+              </button>
+              <button class="btn btn-dark fa fa-times"
+                      *ngIf="updateMode"
+                      (click)="cancelUpdate()">
               </button>
             </th>
           </tr>
@@ -47,9 +56,13 @@
             <td>{{section.seats}}</td>
             <th>
               <button class="btn btn-danger fa fa-trash"
+                      *ngIf="!updateMode"
                       (click)="deleteSection(section._id, section.name, i, j)">
               </button>
-              <button class="btn btn-primary fa fa-pencil"></button>
+              <button class="btn btn-primary fa fa-pencil"
+                      *ngIf="!updateMode"
+                      (click)="populateSection(section, j)">
+              </button>
             </th>
           </tr>
 

@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CourseServiceClient} from "../services/course.service.client";
 import {SectionServiceClient} from "../services/section.service.client";
-import {Course} from "../models/coruse.model.client";
 
 @Component({
   selector: 'app-admin',
@@ -18,6 +17,9 @@ export class AdminComponent implements OnInit {
   selected = 0;
   sectionName = '';
   sectionSeats = 0;
+  updateMode = false;
+  updateSectionIndex = -1;
+  updateSectionId = '';
 
   toggleSelected(id) {
     if (this.selected === id) {
@@ -52,6 +54,32 @@ export class AdminComponent implements OnInit {
       .then(() => {
         this.courses[courseIndex].sections.splice(sectionIndex, 1);
         alert(sectionName + ' deleted successfully');
+      });
+  }
+
+  populateSection(section, sectionIndex) {
+    this.sectionName = section.name;
+    this.sectionSeats = section.seats;
+    this.updateSectionId = section._id;
+    this.updateSectionIndex = sectionIndex;
+    this.updateMode = true;
+  }
+
+  cancelUpdate() {
+    this.sectionName = '';
+    this.sectionSeats = 0;
+    this.updateSectionIndex = -1;
+    this.updateSectionId = '';
+    this.updateMode = false;
+  }
+
+  updateSection(courseIndex) {
+    this.sectionService
+      .updateSection(this.updateSectionId, this.sectionName, this.sectionSeats)
+      .then(() => {
+        this.courses[courseIndex].sections[this.updateSectionIndex].name = this.sectionName;
+        this.courses[courseIndex].sections[this.updateSectionIndex].seats = this.sectionSeats;
+        this.cancelUpdate();
       });
   }
 
