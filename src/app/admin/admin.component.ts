@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {CourseServiceClient} from "../services/course.service.client";
+import {SectionServiceClient} from "../services/section.service.client";
+import {Course} from "../models/coruse.model.client";
 
 @Component({
   selector: 'app-admin',
@@ -7,38 +10,45 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  constructor() { }
+  constructor(private courseService: CourseServiceClient,
+              private sectionService: SectionServiceClient) {
+  }
 
-  selected = 'Course 111';
+  courses = [];
 
-  courses = [
-    {
-      name: 'Course 111',
-      text: 'Something 1'
-    },
-    {
-      name: 'Course 222',
-      text: 'Something 2'
-    },
-    {
-      name: 'Course 333',
-      text: 'Something 3'
-    },
-    {
-      name: 'Course 444',
-      text: 'Something 4'
-    },
-  ];
+  selected = 0;
 
-  toggleSelected (name) {
-    if (this.selected === name) {
-      this.selected = '';
+  newSection = {
+    name: '',
+    seats: 0
+  };
+
+  toggleSelected(id) {
+    if (this.selected === id) {
+      this.selected = 0;
     } else {
-      this.selected = name;
+      this.selected = id;
     }
   }
 
+  loadSections(courseId, index) {
+    this.sectionService
+      .findSectionsForCourse(courseId)
+      .then(sections => {
+        this.courses[index].sections = sections;
+      });
+  }
+
   ngOnInit() {
+    this.courseService.findAllCourses()
+      .then(courses => {
+        this.courses = courses;
+      })
+      .then(() => {
+        for (let i = 0; i < this.courses.length; i++) {
+          this.loadSections(this.courses[i].id, i);
+        }
+      });
   }
 
 }
