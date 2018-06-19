@@ -25,7 +25,6 @@ import { SectionListComponent } from './section-list/section-list.component';
 import {SectionServiceClient} from "./services/section.service.client";
 import {EnrollmentServiceClient} from "./services/enrollment.service.client";
 import { AdminComponent } from './admin/admin.component';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
   declarations: [
@@ -47,8 +46,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
   imports: [
     BrowserModule,
     FormsModule,
-    routing,
-    AngularFontAwesomeModule
+    routing
   ],
   providers: [
     CourseNavigatorServiceClient,

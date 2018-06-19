@@ -46,6 +46,15 @@ export class AdminComponent implements OnInit {
       });
   }
 
+  deleteSection(sectionId, sectionName, courseIndex, sectionIndex) {
+    this.sectionService
+      .deleteSection(sectionId)
+      .then(() => {
+        this.courses[courseIndex].sections.splice(sectionIndex, 1);
+        alert(sectionName + ' deleted successfully');
+      });
+  }
+
   ngOnInit() {
     this.courseService.findAllCourses()
       .then(courses => {

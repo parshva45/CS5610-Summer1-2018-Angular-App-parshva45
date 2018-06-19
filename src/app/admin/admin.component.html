@@ -4,8 +4,9 @@
     <div class="card">
       <div class="card-header text-white bg-dark" (click)="toggleSelected(course.id)">
         {{course.title}}
-        <fa name="plus" class="float-right" *ngIf="course.id !== selected"></fa>
-        <fa name="minus" class="float-right" *ngIf="course.id === selected"></fa>
+        <i class="fa fa-plus float-right" *ngIf="course.id !== selected"></i>
+        <i class="fa fa-minus float-right" *ngIf="course.id === selected"></i>
+        
       </div>
       <div class="card-body" *ngIf="course.id === selected">
 
@@ -41,11 +42,13 @@
 
           <tbody>
 
-          <tr *ngFor="let section of course.sections">
+          <tr *ngFor="let section of course.sections; let j = index" [attr.data-index]="j">
             <td>{{section.name}}</td>
             <td>{{section.seats}}</td>
             <th>
-              <button class="btn btn-danger fa fa-trash"></button>
+              <button class="btn btn-danger fa fa-trash"
+                      (click)="deleteSection(section._id, section.name, i, j)">
+              </button>
               <button class="btn btn-primary fa fa-pencil"></button>
             </th>
           </tr>
