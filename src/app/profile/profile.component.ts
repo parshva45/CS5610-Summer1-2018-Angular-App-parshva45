@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {UserServiceClient} from "../services/user.service.client";
 import {Router} from "@angular/router";
 import {EnrollmentServiceClient} from "../services/enrollment.service.client";
+import {Section} from "../models/section.model.client";
+import {User} from "../models/user.model.client";
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +17,7 @@ export class ProfileComponent implements OnInit {
               private router: Router) {
   }
 
-  user = {
+  user: User = {
     username: '',
     firstName: '',
     lastName: '',
@@ -24,7 +26,7 @@ export class ProfileComponent implements OnInit {
     address: '',
     userType: ''
   };
-  sections = [];
+  sections: Section[] = [];
 
   update(user) {
     this.userService

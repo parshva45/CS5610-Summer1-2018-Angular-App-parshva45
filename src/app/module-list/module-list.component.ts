@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ModuleServiceClient} from "../services/module.service.client";
+import {Module} from "../models/module.model.client";
 
 @Component({
   selector: 'app-module-list',
@@ -17,7 +18,7 @@ export class ModuleListComponent implements OnInit {
 
   courseId;
   moduleId;
-  modules = [];
+  modules: Module[] = [];
 
   setParams(params) {
     this.courseId = params['courseId'];

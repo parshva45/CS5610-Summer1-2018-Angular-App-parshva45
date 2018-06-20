@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {SectionServiceClient} from "../services/section.service.client";
 import {EnrollmentServiceClient} from "../services/enrollment.service.client";
 import {CourseServiceClient} from "../services/course.service.client";
+import {Section} from "../models/section.model.client";
 
 @Component({
   selector: 'app-section-list',
@@ -23,7 +24,7 @@ export class SectionListComponent implements OnInit {
   seats = '';
   courseId = '';
   courseName = '';
-  sections = [];
+  sections: Section[] = [];
 
   loadSections(courseId) {
     this.courseId = courseId;

@@ -1,10 +1,27 @@
+<nav class="navbar navbar-light bg-light justify-content-between">
+  <a class="navbar-brand" routerLink="/home">Whiteboard</a>
+  <form class="form-inline">
+    <a>
+      <button class="btn btn-outline-dark wbdv-nav-btn"
+              routerLink="/login">
+        Login
+      </button>
+    </a>
+    <a>
+      <button class="btn btn-outline-dark wbdv-nav-btn"
+              routerLink="/register">
+        Register
+      </button>
+    </a>
+    <a>
+      <button class="btn btn-outline-dark wbdv-nav-btn"
+              routerLink="/profile">
+        {{name}}
+      </button>
+    </a>
+  </form>
+</nav>
+
 <div class="container-fluid">
-  <h1>
-    White Board
-  </h1>
-
-  <a routerLink="/login">Login</a>
-  <a routerLink="/register">Register</a>
-
   <app-course-grid></app-course-grid>
 </div>
