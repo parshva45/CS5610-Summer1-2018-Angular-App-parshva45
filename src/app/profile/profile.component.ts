@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
               private router: Router) {
   }
 
-  sections: Section[] = [];
+  enrollments = [];
   user: User = new User();
 
   update(user) {
@@ -36,6 +36,10 @@ export class ProfileComponent implements OnInit {
         this.router.navigate(['login']));
   }
 
+  navigateToSectionList(courseId) {
+    this.router.navigate(['course/' + courseId + '/section']);
+  }
+
   ngOnInit() {
     this.userService
       .getProfile()
@@ -49,7 +53,7 @@ export class ProfileComponent implements OnInit {
 
     this.enrollmentService
       .findEnrolledSectionsForStudent()
-      .then(sections => this.sections = sections);
+      .then(enrollments => this.enrollments = enrollments);
   }
 
 }

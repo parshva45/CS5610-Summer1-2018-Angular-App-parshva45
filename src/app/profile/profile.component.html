@@ -72,17 +72,29 @@
   </div>
 
   <button (click)="update(user)"
-          class="btn btn-primary btn-block">
+          class="btn btn-primary btn-block wbdv-submit-btn">
     Update
   </button>
 
-  <h2>Sections ({{sections.length}})</h2>
+  <h3>Enrolled Sections</h3>
 
-  <ul class="list-group">
-    <li *ngFor="let enrollment of sections" class="list-group-item">
-      {{enrollment.section.name}}
-      ({{enrollment.section.seats}})
-    </li>
-  </ul>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Course Name</th>
+      <th>Seats Remaining</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let enrollment of enrollments">
+      <td>
+        <a (click)="navigateToSectionList(enrollment.section['courseId'])">
+          {{enrollment.section['name']}}</a>
+
+      </td>
+      <td>{{enrollment.section.seats}}</td>
+    </tr>
+    </tbody>
+  </table>
 
 </div>

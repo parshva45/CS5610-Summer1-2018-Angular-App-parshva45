@@ -32,6 +32,32 @@
   </form>
 </nav>
 
+<div class="container-fluid" *ngIf="isLoggedIn">
+
+  <h3>Enrolled Sections</h3>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Course Name</th>
+      <th>Seats Remaining</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let enrollment of enrollments">
+      <td>
+        <a (click)="navigateToSectionList(enrollment.section['courseId'])">
+        {{enrollment.section['name']}}</a>
+
+      </td>
+      <td>{{enrollment.section['seats']}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+
 <div class="container-fluid">
+
   <app-course-grid></app-course-grid>
 </div>
