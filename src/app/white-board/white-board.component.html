@@ -1,22 +1,32 @@
 <nav class="navbar navbar-light bg-light justify-content-between">
-  <a class="navbar-brand" routerLink="/home">Whiteboard</a>
+  <a class="navbar-brand">Whiteboard</a>
   <form class="form-inline">
     <a>
       <button class="btn btn-outline-dark wbdv-nav-btn"
+              *ngIf="!isLoggedIn"
               routerLink="/login">
         Login
       </button>
     </a>
     <a>
       <button class="btn btn-outline-dark wbdv-nav-btn"
+              *ngIf="!isLoggedIn"
               routerLink="/register">
         Register
       </button>
     </a>
     <a>
       <button class="btn btn-outline-dark wbdv-nav-btn"
+              *ngIf="isLoggedIn"
               routerLink="/profile">
-        {{name}}
+        Hi {{user.firstName}}!
+      </button>
+    </a>
+    <a>
+      <button class="btn btn-outline-dark wbdv-nav-btn"
+              *ngIf="isLoggedIn"
+              (click)="logout()">
+        Logout
       </button>
     </a>
   </form>

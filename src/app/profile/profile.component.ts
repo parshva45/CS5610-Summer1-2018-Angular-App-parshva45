@@ -17,16 +17,8 @@ export class ProfileComponent implements OnInit {
               private router: Router) {
   }
 
-  user: User = {
-    username: '',
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
-    email: '',
-    address: '',
-    userType: ''
-  };
   sections: Section[] = [];
+  user: User = new User();
 
   update(user) {
     this.userService
@@ -47,7 +39,13 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.userService
       .getProfile()
-      .then(user => this.user = user);
+      .then(user => {
+        if (user) {
+          this.user = user;
+        } else {
+          this.router.navigate(['login']);
+        }
+      });
 
     this.enrollmentService
       .findEnrolledSectionsForStudent()

@@ -36,6 +36,13 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.service
+      .getProfile()
+      .then(user => {
+        if (user) {
+          this.router.navigate(['profile']);
+        }
+      });
   }
 
 }

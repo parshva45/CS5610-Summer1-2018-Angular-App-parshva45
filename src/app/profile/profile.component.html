@@ -1,5 +1,29 @@
+<nav class="navbar navbar-light bg-light justify-content-between">
+  <a class="navbar-brand">Profile</a>
+  <form class="form-inline">
+    <a>
+      <button class="btn btn-outline-dark wbdv-nav-btn"
+              routerLink="/home">
+        Home
+      </button>
+    </a>
+    <a>
+      <button class="btn btn-outline-dark wbdv-nav-btn"
+              *ngIf="user.userType === 'Admin'"
+              routerLink="/admin">
+        Admin
+      </button>
+    </a>
+    <a>
+      <button class="btn btn-outline-dark wbdv-nav-btn"
+              (click)="logout()">
+        Logout
+      </button>
+    </a>
+  </form>
+</nav>
+
 <div class="container">
-  <h1>Profile</h1>
 
   <div class="form-group">
     <label>Username</label>
@@ -60,13 +84,5 @@
       ({{enrollment.section.seats}})
     </li>
   </ul>
-
-  <a (click)="logout()">Logout</a>
-  <a routerLink="/home">Home</a>
-
-  <a *ngIf="user.userType === 'Admin'"
-     routerLink="/admin">
-    Admin Page
-  </a>
 
 </div>

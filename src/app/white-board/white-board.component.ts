@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserServiceClient} from "../services/user.service.client";
+import {User} from "../models/user.model.client";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-white-board',
@@ -8,13 +10,27 @@ import {UserServiceClient} from "../services/user.service.client";
 })
 export class WhiteBoardComponent implements OnInit {
 
-  constructor(private userService: UserServiceClient) { }
+  constructor(private userService: UserServiceClient,
+              private router: Router) { }
 
-  name = 'Parshva';
+  isLoggedIn = false;
+  user: User = new User();
+
+  logout() {
+    this.userService
+      .logout()
+      .then(() =>
+        this.router.navigate(['login']));
+  }
 
   ngOnInit() {
     this.userService.getProfile()
-      .then((user) => console.log(JSON.stringify(user)));
+      .then((user) => {
+        if (user) {
+          this.isLoggedIn = true;
+          this.user = user;
+        }
+      });
   }
 
 }

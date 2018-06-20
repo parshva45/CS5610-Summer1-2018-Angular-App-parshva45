@@ -28,6 +28,13 @@ export class LoginComponent implements OnInit {
               private service: UserServiceClient) { }
 
   ngOnInit() {
+    this.service
+      .getProfile()
+      .then(user => {
+        if (user) {
+          this.router.navigate(['profile']);
+        }
+      });
   }
 
 }
