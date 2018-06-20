@@ -15,7 +15,6 @@ export class AdminComponent implements OnInit {
 
   courses = [];
   selected = 0;
-  sectionName = '';
   sectionSeats = 0;
   updateMode = false;
   updateSectionIndex = -1;
@@ -30,8 +29,8 @@ export class AdminComponent implements OnInit {
   }
 
   loadSections(courseId, index) {
-    this.sectionName = '';
     this.sectionSeats = 0;
+    this.courses[index].sectionName = this.courses[index].title + " Section 1";
     this.sectionService
       .findSectionsForCourse(courseId)
       .then(sections => {
@@ -57,17 +56,17 @@ export class AdminComponent implements OnInit {
       });
   }
 
-  populateSection(section, sectionIndex) {
-    this.sectionName = section.name;
+  populateSection(section, sectionIndex, courseIndex) {
+    this.courses[courseIndex].sectionName = section.name;
     this.sectionSeats = section.seats;
     this.updateSectionId = section._id;
     this.updateSectionIndex = sectionIndex;
     this.updateMode = true;
   }
 
-  cancelUpdate() {
-    this.sectionName = '';
+  cancelUpdate(index) {
     this.sectionSeats = 0;
+    this.courses[index].sectionName = this.courses[index].title + ' Section 1';
     this.updateSectionIndex = -1;
     this.updateSectionId = '';
     this.updateMode = false;
@@ -75,11 +74,11 @@ export class AdminComponent implements OnInit {
 
   updateSection(courseIndex) {
     this.sectionService
-      .updateSection(this.updateSectionId, this.sectionName, this.sectionSeats)
+      .updateSection(this.updateSectionId, this.courses[courseIndex].sectionName, this.sectionSeats)
       .then(() => {
-        this.courses[courseIndex].sections[this.updateSectionIndex].name = this.sectionName;
+        this.courses[courseIndex].sections[this.updateSectionIndex].name = this.courses[courseIndex].sectionName;
         this.courses[courseIndex].sections[this.updateSectionIndex].seats = this.sectionSeats;
-        this.cancelUpdate();
+        this.cancelUpdate(courseIndex);
       });
   }
 

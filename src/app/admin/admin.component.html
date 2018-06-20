@@ -22,8 +22,9 @@
           <tr>
             <th>
               <input class="form-control"
-                     [(ngModel)]="sectionName"
-                     placeholder="Eg: {{course.title}} - Section 1">
+                     ng-init="course.title Section 1"
+                     [(ngModel)]="course.sectionName"
+                     placeholder="Eg: {{course.title}} Section 1">
             </th>
             <th>
               <input [(ngModel)]="sectionSeats"
@@ -35,7 +36,7 @@
             <th>
               <button class="btn btn-success fa fa-plus"
                       *ngIf="!updateMode"
-                      (click)="createSection(course.id, sectionName, sectionSeats, i)">
+                      (click)="createSection(course.id, course.sectionName, sectionSeats, i)">
               </button>
               <button class="btn btn-success fa fa-check"
                       *ngIf="updateMode"
@@ -43,7 +44,7 @@
               </button>
               <button class="btn btn-dark fa fa-times"
                       *ngIf="updateMode"
-                      (click)="cancelUpdate()">
+                      (click)="cancelUpdate(i)">
               </button>
             </th>
           </tr>
@@ -61,7 +62,7 @@
               </button>
               <button class="btn btn-primary fa fa-pencil"
                       *ngIf="!updateMode"
-                      (click)="populateSection(section, j)">
+                      (click)="populateSection(section, j, i)">
               </button>
             </th>
           </tr>
@@ -73,4 +74,8 @@
     </div>
     <br>
   </div>
+
+  <a routerLink="/profile">Profile</a>
+  <a routerLink="/home">Home</a>
+
 </div>
