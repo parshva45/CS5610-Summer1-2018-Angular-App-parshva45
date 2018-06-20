@@ -18,12 +18,38 @@
 
 <div class="container">
 
-  <ul class="list-group">
-    <li *ngFor="let section of sections" class="list-group-item">
-      {{section.name}} ({{section.seats}})
-      <button (click)="enroll(section)"
-              class="float-right btn btn-primary">Enroll</button>
-    </li>
-  </ul>
+  <table class="table table-striped" *ngIf="sections.length > 0">
+    <thead>
+    <tr>
+      <th>Section Name</th>
+      <th>Seats Remaining</th>
+      <th>Enrollment Status</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let section of sections">
+      <td>{{section.name}}</td>
+      <td>{{section.seats}}</td>
+      <td>
+        <div *ngIf="isSectionEnrolled(section['_id'])">Enrolled</div>
+        <div *ngIf="!isSectionEnrolled(section['_id'])">Not Enrolled</div>
+      </td>
+      <td>
+        <button class="btn btn-primary"
+                *ngIf="!isSectionEnrolled(section['_id'])"
+                [disabled]="section.seats === 0"
+                (click)="enroll(section)">
+          Enroll
+        </button>
+        <button class="btn btn-danger"
+                *ngIf="isSectionEnrolled(section['_id'])"
+                (click)="unenroll(section['_id'])">
+          Unenroll
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 
 </div>

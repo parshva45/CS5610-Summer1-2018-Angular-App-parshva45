@@ -27,8 +27,10 @@ export class SectionListComponent implements OnInit {
   seats = '';
   courseId = '';
   courseName = '';
-  sections: Section[] = [];
+  sections = [];
   user: User = new User();
+  enrolledSections: Section[] = [];
+  enrollments = [];
 
   loadSections(courseId) {
     this.courseId = courseId;
@@ -38,7 +40,16 @@ export class SectionListComponent implements OnInit {
     this
       .sectionService
       .findSectionsForCourse(courseId)
-      .then(sections => this.sections = sections);
+      .then(sections => this.sections = sections)
+      .then(() => {
+        return this.enrollmentService.findEnrolledSectionsForStudent();
+      })
+      .then((enrolledments) => {
+        this.enrollments = enrolledments;
+        this.enrolledSections = enrolledments.map(
+          enrollment => enrollment.section
+        );
+      });
   }
 
   enroll(section) {
@@ -48,6 +59,27 @@ export class SectionListComponent implements OnInit {
       .then(() => {
         this.router.navigate(['profile']);
       });
+  }
+
+  isSectionEnrolled(sectionId) {
+    for (let i = 0; i < this.enrolledSections.length; i++) {
+      if (this.enrolledSections[i]['_id'] === sectionId) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  unenroll(sectionId) {
+    let enrollmentId;
+    for (let i = 0; i < this.enrollments.length; i++) {
+      if (sectionId === this.enrollments[i]['section']['_id']) {
+        enrollmentId = this.enrollments[i]['_id'];
+      }
+    }
+    this.enrollmentService
+      .unenrollStudentInSection(sectionId, enrollmentId)
+      .then(() => this.router.navigate(['profile']));
   }
 
   ngOnInit() {

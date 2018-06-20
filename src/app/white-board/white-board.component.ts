@@ -32,7 +32,7 @@ export class WhiteBoardComponent implements OnInit {
   unenrollStudentInSection(sectionId, enrollmentId) {
     this.enrollmentService
       .unenrollStudentInSection(sectionId, enrollmentId)
-      .then(() => this.findEnrolledSectionsForStudent());
+      .then(() => this.router.navigate(['profile']));
   }
 
   ngOnInit() {
