@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {SectionServiceClient} from "../services/section.service.client";
 import {EnrollmentServiceClient} from "../services/enrollment.service.client";
@@ -53,9 +53,20 @@ export class SectionListComponent implements OnInit {
   }
 
   enroll(section) {
+    this.sectionService.getSection(section['_id'])
+      .then(latestSection => {
+        if (latestSection[0].seats > 0) {
+          this.enrollStudent(section['_id']);
+        } else {
+          alert("Section already filled!");
+          this.loadSections(this.courseId);
+        }
+      });
+  }
 
+  enrollStudent(sectionId) {
     this.enrollmentService
-      .enrollStudentInSection(section._id)
+      .enrollStudentInSection(sectionId)
       .then(() => {
         this.router.navigate(['profile']);
       });
