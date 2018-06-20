@@ -1,6 +1,6 @@
 export class SectionServiceClient {
 
-  SECTION_URL = 'http://localhost:4000/api/course/COURSEID/section';
+  SECTION_URL = 'https://assignment5-nodejs-app.herokuapp.com/api/course/COURSEID/section';
 
   findSectionsForCourse(courseId) {
     return fetch(this.SECTION_URL.replace('COURSEID', courseId))
@@ -8,7 +8,7 @@ export class SectionServiceClient {
   }
 
   getSection(sectionId) {
-    return fetch('http://localhost:4000/api/section/' + sectionId)
+    return fetch('https://assignment5-nodejs-app.herokuapp.com/api/section/' + sectionId)
       .then(section => section.json());
   }
 
@@ -25,7 +25,7 @@ export class SectionServiceClient {
   }
 
   deleteSection(sectionId) {
-    return fetch('http://localhost:4000/api/section/' + sectionId, {
+    return fetch('https://assignment5-nodejs-app.herokuapp.com/api/section/' + sectionId, {
       method: 'delete'
     });
   }
@@ -35,7 +35,7 @@ export class SectionServiceClient {
       name: sectionName,
       seats: sectionSeats
     };
-    return fetch('http://localhost:4000/api/section/' + sectionId, {
+    return fetch('https://assignment5-nodejs-app.herokuapp.com/api/section/' + sectionId, {
       method: 'put',
       body: JSON.stringify(section),
       credentials: 'include',

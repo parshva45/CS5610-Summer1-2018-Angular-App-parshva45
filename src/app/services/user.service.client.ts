@@ -1,7 +1,7 @@
 export class UserServiceClient {
 
   updateProfile(profile) {
-    return fetch('http://localhost:4000/api/profile', {
+    return fetch('https://assignment5-nodejs-app.herokuapp.com/api/profile', {
       body: JSON.stringify(profile),
       credentials: 'include', // include, same-origin, *omit
       method: 'put',
@@ -12,7 +12,7 @@ export class UserServiceClient {
   }
 
   findUserByUsername(username) {
-    return fetch('http://localhost:4000/api/user/' + username)
+    return fetch('https://assignment5-nodejs-app.herokuapp.com/api/user/' + username)
       .then(response => response.json());
   }
 
@@ -21,7 +21,7 @@ export class UserServiceClient {
       username: username,
       password: password
     };
-    return fetch('http://localhost:4000/api/login', {
+    return fetch('https://assignment5-nodejs-app.herokuapp.com/api/login', {
       method: 'post',
       body: JSON.stringify(credentials),
       credentials: 'include',
@@ -33,14 +33,14 @@ export class UserServiceClient {
   }
 
   logout() {
-    return fetch('http://localhost:4000/api/logout', {
+    return fetch('https://assignment5-nodejs-app.herokuapp.com/api/logout', {
       method: 'post',
       credentials: 'include'
     });
   }
 
   getProfile() {
-    return fetch('http://localhost:4000/api/profile',
+    return fetch('https://assignment5-nodejs-app.herokuapp.com/api/profile',
       {
         credentials: 'include', // include, same-origin, *omit
       })
@@ -52,7 +52,7 @@ export class UserServiceClient {
       username: username,
       password: password
     };
-    return fetch('http://localhost:4000/api/register', {
+    return fetch('https://assignment5-nodejs-app.herokuapp.com/api/register', {
       body: JSON.stringify(user),
       credentials: 'include', // include, same-origin, *omit
       method: 'post',

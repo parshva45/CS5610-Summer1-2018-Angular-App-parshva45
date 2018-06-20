@@ -1,7 +1,7 @@
 export class EnrollmentServiceClient {
 
   findEnrolledSectionsForStudent() {
-    const url = 'http://localhost:4000/api/student/section';
+    const url = 'https://assignment5-nodejs-app.herokuapp.com/api/student/section';
     return fetch(url, {
       credentials: 'include'
     })
@@ -9,7 +9,7 @@ export class EnrollmentServiceClient {
   }
 
   enrollStudentInSection(sectionId) {
-    const url = 'http://localhost:4000/api/section/' + sectionId + '/enrollment';
+    const url = 'https://assignment5-nodejs-app.herokuapp.com/api/section/' + sectionId + '/enrollment';
     return fetch(url, {
       method: 'post',
       credentials: 'include'
@@ -17,7 +17,7 @@ export class EnrollmentServiceClient {
   }
 
   unenrollStudentInSection(sectionId, enrollmentId) {
-    const url = 'http://localhost:4000/api/section/' + sectionId + '/enrollment/' + enrollmentId;
+    const url = 'https://assignment5-nodejs-app.herokuapp.com/api/section/' + sectionId + '/enrollment/' + enrollmentId;
     return fetch(url, {
       method: 'delete',
       credentials: 'include'
