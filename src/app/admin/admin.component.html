@@ -1,3 +1,21 @@
+<nav class="navbar navbar-light bg-light justify-content-between">
+  <a class="navbar-brand">Admin Page</a>
+  <form class="form-inline">
+    <a>
+      <button class="btn btn-outline-dark wbdv-nav-btn"
+              routerLink="/home">
+        Home
+      </button>
+    </a>
+    <a>
+      <button class="btn btn-outline-dark wbdv-nav-btn"
+              routerLink="/profile">
+        Admin Profile
+      </button>
+    </a>
+  </form>
+</nav>
+
 <div class="container">
   <h3>Courses and Sections</h3>
   <div *ngFor="let course of courses; let i = index" [attr.data-index]="i">
@@ -74,8 +92,5 @@
     </div>
     <br>
   </div>
-
-  <a routerLink="/profile">Profile</a>
-  <a routerLink="/home">Home</a>
 
 </div>

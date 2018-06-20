@@ -20,13 +20,6 @@ export class WhiteBoardComponent implements OnInit {
   user: User = new User();
   enrollments = [];
 
-  logout() {
-    this.userService
-      .logout()
-      .then(() =>
-        this.router.navigate(['login']));
-  }
-
   findEnrolledSectionsForStudent() {
     this.enrollmentService.findEnrolledSectionsForStudent()
       .then(enrollments => this.enrollments = enrollments);

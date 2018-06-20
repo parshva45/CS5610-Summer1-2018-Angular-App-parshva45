@@ -4,6 +4,8 @@ import {SectionServiceClient} from "../services/section.service.client";
 import {EnrollmentServiceClient} from "../services/enrollment.service.client";
 import {CourseServiceClient} from "../services/course.service.client";
 import {Section} from "../models/section.model.client";
+import {UserServiceClient} from "../services/user.service.client";
+import {User} from "../models/user.model.client";
 
 @Component({
   selector: 'app-section-list',
@@ -15,6 +17,7 @@ export class SectionListComponent implements OnInit {
   constructor(private sectionService: SectionServiceClient,
               private enrollmentService: EnrollmentServiceClient,
               private courseService: CourseServiceClient,
+              private userService: UserServiceClient,
               private router: Router,
               private route: ActivatedRoute) {
     this.route.params.subscribe(params => this.loadSections(params['courseId']));
@@ -25,6 +28,7 @@ export class SectionListComponent implements OnInit {
   courseId = '';
   courseName = '';
   sections: Section[] = [];
+  user: User = new User();
 
   loadSections(courseId) {
     this.courseId = courseId;
@@ -38,7 +42,7 @@ export class SectionListComponent implements OnInit {
   }
 
   enroll(section) {
-    // alert(section._id);
+
     this.enrollmentService
       .enrollStudentInSection(section._id)
       .then(() => {
@@ -46,6 +50,16 @@ export class SectionListComponent implements OnInit {
       });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.userService
+      .getProfile()
+      .then(user => {
+        if (user) {
+          this.user = user;
+        } else {
+          this.router.navigate(['login']);
+        }
+      });
+  }
 
 }

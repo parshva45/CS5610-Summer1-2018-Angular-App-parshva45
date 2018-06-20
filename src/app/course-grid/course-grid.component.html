@@ -5,8 +5,10 @@
         <h5 class="card-title">{{course.title}}</h5>
         <a routerLink="/course/{{course.id}}"
            class="btn btn-success">Details</a>
+        <span *ngIf="user.userType === 'Student'">
         <a routerLink="/course/{{course.id}}/section"
            class="btn btn-primary">Enroll</a>
+        </span>
       </div>
     </div>
   </div>

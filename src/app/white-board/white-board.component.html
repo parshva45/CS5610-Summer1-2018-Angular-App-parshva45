@@ -19,27 +19,20 @@
       <button class="btn btn-outline-dark wbdv-nav-btn"
               *ngIf="isLoggedIn"
               routerLink="/profile">
-        Hi {{user.firstName}}!
-      </button>
-    </a>
-    <a>
-      <button class="btn btn-outline-dark wbdv-nav-btn"
-              *ngIf="isLoggedIn"
-              (click)="logout()">
-        Logout
+        Profile
       </button>
     </a>
   </form>
 </nav>
 
-<div class="container-fluid" *ngIf="isLoggedIn">
+<div class="container-fluid" *ngIf="isLoggedIn && user.userType === 'Student'">
 
   <h3>Enrolled Sections</h3>
 
   <table class="table table-striped" *ngIf="enrollments.length > 0">
     <thead>
     <tr>
-      <th>Course Name</th>
+      <th>Section Name</th>
       <th>Seats Remaining</th>
       <th>&nbsp;</th>
     </tr>
@@ -62,8 +55,10 @@
     </tbody>
   </table>
 
+  <hr>
+
 </div>
-<hr>
+
 <div class="container-fluid">
 
   <h3>Courses</h3>

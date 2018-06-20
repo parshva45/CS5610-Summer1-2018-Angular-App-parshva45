@@ -11,7 +11,7 @@
       <button class="btn btn-outline-dark wbdv-nav-btn"
               *ngIf="user.userType === 'Admin'"
               routerLink="/admin">
-        Admin
+        Admin Page
       </button>
     </a>
     <a>
@@ -76,34 +76,38 @@
     Update
   </button>
 
-  <hr>
+  <div *ngIf="user.userType === 'Student'">
 
-  <h3>Enrolled Sections</h3>
+    <hr>
 
-  <table class="table table-striped" *ngIf="enrollments.length > 0">
-    <thead>
-    <tr>
-      <th>Course Name</th>
-      <th>Seats Remaining</th>
-      <th>&nbsp;</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let enrollment of enrollments">
-      <td>
-        <a (click)="navigateToSectionList(enrollment.section['courseId'])">
-          {{enrollment.section['name']}}</a>
+    <h3>Enrolled Sections</h3>
 
-      </td>
-      <td>{{enrollment.section.seats}}</td>
-      <td>
-        <button class="btn btn-danger"
-                (click)="unenrollStudentInSection(enrollment.section['_id'], enrollment['_id'])">
-          Unenroll
-        </button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+    <table class="table table-striped" *ngIf="enrollments.length > 0">
+      <thead>
+      <tr>
+        <th>Section Name</th>
+        <th>Seats Remaining</th>
+        <th>&nbsp;</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let enrollment of enrollments">
+        <td>
+          <a (click)="navigateToSectionList(enrollment.section['courseId'])">
+            {{enrollment.section['name']}}</a>
+
+        </td>
+        <td>{{enrollment.section.seats}}</td>
+        <td>
+          <button class="btn btn-danger"
+                  (click)="unenrollStudentInSection(enrollment.section['_id'], enrollment['_id'])">
+            Unenroll
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
 
 </div>
