@@ -76,13 +76,16 @@
     Update
   </button>
 
+  <hr>
+
   <h3>Enrolled Sections</h3>
 
-  <table class="table table-striped">
+  <table class="table table-striped" *ngIf="enrollments.length > 0">
     <thead>
     <tr>
       <th>Course Name</th>
       <th>Seats Remaining</th>
+      <th>&nbsp;</th>
     </tr>
     </thead>
     <tbody>
@@ -93,6 +96,12 @@
 
       </td>
       <td>{{enrollment.section.seats}}</td>
+      <td>
+        <button class="btn btn-danger"
+                (click)="unenrollStudentInSection(enrollment.section['_id'], enrollment['_id'])">
+          Unenroll
+        </button>
+      </td>
     </tr>
     </tbody>
   </table>

@@ -40,6 +40,18 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['course/' + courseId + '/section']);
   }
 
+  unenrollStudentInSection(sectionId, enrollmentId) {
+    this.enrollmentService
+      .unenrollStudentInSection(sectionId, enrollmentId)
+      .then(() => this.findEnrolledSectionsForStudent());
+  }
+
+  findEnrolledSectionsForStudent() {
+    this.enrollmentService
+      .findEnrolledSectionsForStudent()
+      .then(enrollments => this.enrollments = enrollments);
+  }
+
   ngOnInit() {
     this.userService
       .getProfile()
@@ -50,10 +62,7 @@ export class ProfileComponent implements OnInit {
           this.router.navigate(['login']);
         }
       });
-
-    this.enrollmentService
-      .findEnrolledSectionsForStudent()
-      .then(enrollments => this.enrollments = enrollments);
+    this.findEnrolledSectionsForStudent();
   }
 
 }

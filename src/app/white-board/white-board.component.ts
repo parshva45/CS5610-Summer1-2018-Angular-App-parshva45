@@ -36,6 +36,12 @@ export class WhiteBoardComponent implements OnInit {
     this.router.navigate(['course/' + courseId + '/section']);
   }
 
+  unenrollStudentInSection(sectionId, enrollmentId) {
+    this.enrollmentService
+      .unenrollStudentInSection(sectionId, enrollmentId)
+      .then(() => this.findEnrolledSectionsForStudent());
+  }
+
   ngOnInit() {
     this.userService.getProfile()
       .then((user) => {

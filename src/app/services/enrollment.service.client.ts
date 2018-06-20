@@ -15,4 +15,12 @@ export class EnrollmentServiceClient {
       credentials: 'include'
     });
   }
+
+  unenrollStudentInSection(sectionId, enrollmentId) {
+    const url = 'http://localhost:4000/api/section/' + sectionId + '/enrollment/' + enrollmentId;
+    return fetch(url, {
+      method: 'delete',
+      credentials: 'include'
+    });
+  }
 }

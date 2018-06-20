@@ -36,28 +36,37 @@
 
   <h3>Enrolled Sections</h3>
 
-  <table class="table table-striped">
+  <table class="table table-striped" *ngIf="enrollments.length > 0">
     <thead>
     <tr>
       <th>Course Name</th>
       <th>Seats Remaining</th>
+      <th>&nbsp;</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let enrollment of enrollments">
       <td>
         <a (click)="navigateToSectionList(enrollment.section['courseId'])">
-        {{enrollment.section['name']}}</a>
+          {{enrollment.section['name']}}</a>
 
       </td>
       <td>{{enrollment.section['seats']}}</td>
+      <td>
+        <button class="btn btn-danger"
+                (click)="unenrollStudentInSection(enrollment.section['_id'], enrollment['_id'])">
+          Unenroll
+        </button>
+      </td>
     </tr>
     </tbody>
   </table>
 
 </div>
-
+<hr>
 <div class="container-fluid">
+
+  <h3>Courses</h3>
 
   <app-course-grid></app-course-grid>
 </div>
